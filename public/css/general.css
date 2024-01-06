@@ -1,0 +1,181 @@
+:root{
+    --primary: #8c38ff;
+    --light: #EEEEEE;
+    --dark: #212121;
+    --green: greenyellow;
+    --red: rgb(255, 89, 47);
+    --yellow: rgb(255, 234, 47);
+    --blue: rgb(0, 213, 255);
+}
+
+select:focus,
+input:focus{
+    outline-color: var(--primary);
+
+}
+body{
+    margin: 0;
+}
+button{
+    font-family: Roboto,Arial;
+    font-size: large;
+}
+p{
+    font-family: Roboto,Arial;
+    font-size: large;
+}
+h1{
+    font-family: Roboto,Arial;
+    font-size: large;
+}
+input{
+    font-family: Roboto,Arial;
+    font-size: large;
+}
+select{
+    font-family: Roboto,Arial;
+    font-size: large;
+}
+table,tr,td{
+    font-family: Roboto,Arial;
+    font-size: large;
+}
+header {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    top:0;
+    width: 100%;
+    background-color: var(--dark);
+    padding: 16px 32px;
+    border-bottom: 3px solid var(--primary);
+    padding: 10px;
+    z-index: 9999;
+}
+
+.crea-gara,
+.gestisci-gare,
+.storico-gare,
+.gara-live,
+.button-login,
+.button-logout{
+    margin-right: 30px;
+    border:0;
+    border-radius: 12px;
+    padding: 5px 5px;
+    background: none;
+    border:0;
+    color: white;
+}
+
+.button-login,
+.button-logout{
+    position: absolute;
+    right: 0px;
+}
+
+.crea-gara:hover,
+.gestisci-gare:hover,
+.storico-gare:hover,
+.gara-live:hover,
+.button-login:hover,
+.button-logout:hover{
+    margin-right: 30px;
+    background-color: var(--primary);
+    border:0;
+    border-radius: 12px;
+    padding: 5px 5px;
+}
+
+.is-active{
+    margin-right: 30px;
+    background-color: var(--primary);
+    border:0;
+    border-radius: 12px;
+    padding: 5px 5px;
+}
+
+.g_id_signin{
+    position: absolute;
+    right:10px;
+    margin-right: 30px;
+
+}
+
+.google-login{
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+}
+
+/*freccia*/
+.nome,
+.testo,
+.squadre,
+.admin,
+.salva-gara{
+    margin-right: 30px;
+    border:0;
+    border-radius: 12px;
+    padding: 5px 5px;
+    background: none;
+    border:0;
+    color: white;
+}
+
+.nome:hover,
+.testo:hover,
+.squadre:hover,
+.admin:hover,
+.salva-gara:hover{
+    margin-right: 30px;
+    background-color: var(--primary);
+    border:0;
+    border-radius: 12px;
+    padding: 5px 5px;
+}
+.line{
+    display: flex;
+    justify-content: space-around;
+    width:100%;
+    z-index: 1;
+    position: absolute;
+}
+.freccia-container{
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    z-index: 9998;
+}
+.freccia {
+    height: 130px;
+    object-position: center;
+    z-index: 0;
+}
+
+.is-active{
+    margin-right: 30px;
+    background-color: var(--primary);
+    border:0;
+    border-radius: 12px;
+    padding: 5px 5px;
+}
+
+/*fine freccia*/
+
+.display-none{
+    display: none;
+}
+
+.overlay {
+    position: fixed;
+    top: 55px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 1);
+    z-index: 9999;
+}

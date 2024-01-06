@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/general.css">
+        <style>
+            .mie-gare-container{
+                display: grid;
+                justify-content: center;
+                margin-top: 80px;
+                margin-left: 20px;
+                margin-right: 20px;
+            }
+
+            .gara{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: center;
+                background-color: var(--light);
+                border-radius: 5px;
+                padding: 10px;
+                padding-bottom: 0;/*sostituito da margine mei p per lasciare spazio in caso di sovrapposizione*/
+                font-size: large;
+                border:0;
+                margin-bottom: 10px;
+            }
+
+            .mie-gare{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                max-height: 550px;
+                background-color: #fff0;
+                backdrop-filter: blur(7px);
+                box-shadow: 0 .4rem .8rem #8c388c;
+                border-radius: .8rem;
+                overflow: auto;
+                padding-left: 20px;
+                padding-right: 20px;
+                padding-bottom: 10px;
+            }
+
+            .button-gestisci-gara,
+            .button-inserisci-risposte,
+            .button-inizia-gara,
+            .button-modifica,
+            .button-vai-alla-gara{
+                background-color: #8c388c;
+                border:none;
+                border-radius: 10px;
+                padding: 10px;
+                color: white;
+                margin-bottom: 10px;
+            }
+
+            .x-testo{
+                color: rgb(200, 0, 0);
+                border:none;
+                background-color: transparent;
+            }
+
+            .p-x-gara{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                margin-top: -15px;
+                margin-right: 10px;
+            }
+
+            .gestisci-gare-modifica{
+                font-size: x-large;
+            }
+
+            .p-gestisci-gare{
+                margin: 0;
+            }
+
+            .p-gestisci-gare-titolo-gara{
+                margin-bottom: 10px;
+            }
+
+            .popup-inizia-gara-external-container,
+            .popup-elimina-gara-external-container{
+                display: none;
+                position: fixed;
+                top: 51px;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                backdrop-filter: blur(2px);
+                background-color: rgba(0, 0, 0, 0.1);
+                justify-content: center;
+                align-items: start;
+            }
+
+            .popup-inizia-gara-container,
+            .popup-elimina-gara-container{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                background-color: rgb(255, 255, 255);
+                backdrop-filter: blur(7px);
+                box-shadow: 0 .4rem .8rem #8c388c;
+                border-radius: .8rem;
+                overflow: auto;
+                padding-left: 20px;
+                padding-right: 20px;
+                padding-bottom: 20px;
+                margin-top: 20px;
+            }
+
+            .popup-inizia-gara,
+            .popup-elimina-gara{
+                background-color: #fff0;
+                display:flex;
+                flex-direction: column;
+            }
+
+            .popup-inizia-gara p,
+            .popup-elimina-gara p{
+                font-size: x-large;
+            }
+
+            .inizia-gara,
+            .elimina-gara,
+            .gestisci-gare-torna-inietro,
+            .elimina-gara-torna-inietro{
+                background-color: #8c388c;
+                border:none;
+                border-radius: 10px;
+                padding: 10px;
+                color: white;
+            }
+
+            .bottoni-inizio-gara-container,
+            .bottoni-elimina-gara-container{
+                display: flex;
+                justify-content: space-around;
+            }
+
+        </style>
+    </head>
+    <body>
+        <header class="header">
+            <button class="crea-gara" onclick="window.location.href='crea_gara'">Crea gara</button>
+            <button class="gestisci-gare is-active" onclick="window.location.href='gestisci_gare'">Gestisci gare</button>
+            <button class="storico-gare" onclick="window.location.href='storico_gare'">Storico gare</button>
+            <button class="gara-live" onclick="window.location.href='home'">Gara live</button>
+            <img class="gara-live" src="immagini/zoom-in.svg" onclick="zoom_in()">
+            <img class="gara-live" src="immagini/zoom-out.svg" onclick="zoom_out()">
+            <button class="button-login" onclick="login()">Login</button>
+            <button class="button-logout" onclick="logout()">Logout</button>
+            <div style="display: none;" class="google-login">
+                <script src="https://accounts.google.com/gsi/client" async></script>
+                <!-- Sign In With Google button with HTML data attributes API -->
+                <div id="g_id_onload"
+                    data-client_id="195740030147-8mfntisl8iji9m4gpd1vhe27a5tel8p6.apps.googleusercontent.com"
+                    data-context="signin"
+                    data-ux_mode="popup"
+                    data-callback="handleCredentialResponse"
+                    data-auto_prompt="true">
+                </div>
+        
+                <div class="g_id_signin"
+                    data-type="standard"
+                    data-shape="pill"
+                    data-theme="outline"
+                    data-text="signin_with"
+                    data-size="large"
+                    data-logo_alignment="left">
+                </div>
+        
+                <!-- Display the user's profile info -->
+                <div class="pro-data hidden"></div>
+            </div>
+        </header>
+        <div class="overlay" id="overlay" style="display: none;"></div>
+
+        <div class="mie-gare-container">
+            <div class="mie-gare">
+                <p align="center">Attendere</p>
+                <!--<p align="center" class="gestisci-gare-modifica">Le mie gare</p>
+                <div class="mie-gare-container-interno">
+                    <div class="gara">
+                        <div class="p-x-gara">
+                            <p class="p-gestisci-gare-titolo-gara"><button class="x-testo"> X</button>Gara 1</p>
+                        </div>
+                        <p class="p-gestisci-gare"><button class="button-gestisci-gare">Inizia gara</button> <button class="button-gestisci-gare">Modifica</button></p>
+                    </div>
+                    <div class="gara">
+                        <div class="p-x-gara">
+                            <p class="p-gestisci-gare-titolo-gara"><button class="x-testo"> X</button>Gara 1</p>
+                        </div>
+                        <p class="p-gestisci-gare"><button class="button-gestisci-gare">Inizia gara</button> <button class="button-gestisci-gare">Modifica</button></p>
+                    </div>
+                    <div class="gara">
+                        <div class="p-x-gara">
+                            <p class="p-gestisci-gare-titolo-gara">Gara russell catanzaro (21/10/2025)</p>
+                        </div>
+                        <p class="p-gestisci-gare"><button class="button-gestisci-gare">Inizia gara</button> <button class="button-gestisci-gare">Modifica</button></p>
+                    </div>
+                    <div class="gara">
+                        <div class="p-x-gara">
+                            <p class="p-gestisci-gare-titolo-gara">Gara russell catanzaro (21/10/2025)</p>
+                        </div>
+                        <p class="p-gestisci-gare"><button class="button-inserisci-risposte">Inserisci risposte</button> <button class="button-gestisci-gare">Modifica</button></p>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+
+        <div class="popup-inizia-gara-external-container">
+            <div class="popup-inizia-gara-container">
+                <div class="popup-inizia-gara">
+                    <p>Sei sicuro di voler iniziare la gara?</p>
+                    <div class="bottoni-inizio-gara-container">
+                        <button class="inizia-gara">Inizia la gara</button>
+                        <button class="gestisci-gare-torna-inietro">Torna indietro</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="popup-elimina-gara-external-container">
+            <div class="popup-elimina-gara-container">
+                <div class="popup-elimina-gara">
+                    <p>Sei sicuro di voler ELIMINARE la gara?</p>
+                    <div class="bottoni-elimina-gara-container">
+                        <button class="elimina-gara">ELIMINA gara</button>
+                        <button class="elimina-gara-torna-inietro">Torna indietro</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="script/google_login.js"></script>
+        <script src="script/render_pages.js"></script>
+        <script src="script/gestisci_gare.js"></script>
+    </body>
+</html>
+

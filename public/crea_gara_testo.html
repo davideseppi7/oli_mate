@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/general.css">
+        <style>
+            .container{
+                position: absolute;
+                margin-top: 60px;
+                width: 100%;
+            }
+
+            .avanti-termina-nome{
+                position: absolute;
+                right: 0;
+            }
+
+            .container-carica-testo{
+                margin-top: 130px;
+                display: flex;
+                justify-content: space-around;
+                width: 100%;
+            }
+
+            .carica-testo{
+                max-width: 500px;
+                max-height: 400px;
+                background-color: #fff0;
+                backdrop-filter: blur(7px);
+                box-shadow: 0 .4rem .8rem #8c388c;
+                border-radius: .8rem;
+                overflow: auto;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .elimina-testo{
+                display: block;
+            }
+
+            .vedi-domande{
+                background-color: lightblue;
+                display: grid;
+                justify-content: center;
+                grid-template-rows: 52px 1fr 57px;
+                padding-left: 30px;
+                padding-right: 30px;
+
+                height: 400px;
+                background-color: #fff0;
+                backdrop-filter: blur(7px);
+                box-shadow: 0 .4rem .8rem #8c388c;
+                border-radius: .8rem;
+                overflow: auto;
+            }
+
+            .domanda{
+                background-color: var(--light);
+                display: inline-block;
+                padding-left: 15px;
+                padding-right: 15px;
+                margin-top:15px;
+                margin-left: -12px;
+                margin-right: -12px;
+                border-radius: 20px;
+                max-height: 63px;
+            }
+
+            .aggiungi-domanda{
+                /*background-color: lightpink;*/
+                display: flex;
+                flex-direction: column;
+                justify-content:end;
+                padding-left: 10px;
+                padding-right: 10px;
+                margin-top: 8px;
+                margin-bottom: 8px;
+            }
+
+            .upload-testo,
+            .elimina-testo{
+                /*background-color: #5c6664;*/
+                background-color: #8c388c;
+                border:none;
+                border-radius: 10px;
+                padding: 10px;
+                color: white;
+            }
+
+            .elimina-testo{
+                margin-top: 20px;
+            }
+
+            .file-testo{
+                
+                background-color: #8c388c;
+                border:none;
+                border-radius: 10px;
+                padding: 6.5px;
+                color: white;
+            }
+
+            .box-domanda-testo{
+                max-width: 80px;
+                text-align: center;
+                border-radius: 10px;
+                border-color: var(--light);
+                border-style: solid;
+            }
+            
+            .x-testo{
+                color: rgb(200, 0, 0);
+                border:none;
+                background-color: transparent;
+            }
+
+            .button-aggiungi-domanda{
+                background-color: #8c388c;
+                border:none;
+                border-radius: 10px;
+                padding: 10px;
+                color: white;
+            }
+
+            .carica-testo-titolo-risposte{
+                margin: 0;
+                margin-top: 10px;
+                max-width: 200px;
+            }
+
+            .container-domande-testo{
+                display: flex;
+                flex-direction: column;
+                justify-content: start;
+            }
+
+        </style>
+    </head>
+    <body>
+        <header class="header">
+            <button class="crea-gara" onclick="window.location.href='crea_gara'">Crea gara</button>
+            <button class="gestisci-gare" onclick="window.location.href='gestisci_gare'">Gestisci gare</button>
+            <button class="storico-gare" onclick="window.location.href='storico_gare'">Storico gare</button>
+            <button class="gara-live" onclick="window.location.href='home'">Gara live</button>
+            <img class="gara-live" src="immagini/zoom-in.svg" onclick="zoom_in()">
+            <img class="gara-live" src="immagini/zoom-out.svg" onclick="zoom_out()">
+            <button class="button-login" onclick="login()">Login</button>
+            <button class="button-logout" onclick="logout()">Logout</button>
+            <div style="display: none;" class="google-login">
+                <script src="https://accounts.google.com/gsi/client" async></script>
+                <!-- Sign In With Google button with HTML data attributes API -->
+                <div id="g_id_onload"
+                    data-client_id="195740030147-8mfntisl8iji9m4gpd1vhe27a5tel8p6.apps.googleusercontent.com"
+                    data-context="signin"
+                    data-ux_mode="popup"
+                    data-callback="handleCredentialResponse"
+                    data-auto_prompt="true">
+                </div>
+        
+                <div class="g_id_signin"
+                    data-type="standard"
+                    data-shape="pill"
+                    data-theme="outline"
+                    data-text="signin_with"
+                    data-size="large"
+                    data-logo_alignment="left">
+                </div>
+        
+                <!-- Display the user's profile info -->
+                <div class="pro-data hidden"></div>
+            </div>
+        </header>
+        <div class="overlay" id="overlay" style="display: none;"></div>
+        <div class="container">
+            <div class="freccia-container">
+                <img class="freccia" src="immagini/freccia.png">
+                <div class="line">
+                    <button class="nome" onclick="window.location.href='crea_gara_nome'">Nome gara / Dati gara</button>
+                    <button class="testo is-active" onclick="window.location.href='crea_gara_testo'">Testo gara</button>
+                    <button class="squadre" onclick="window.location.href='crea_gara_squadre'">Squadre</button>
+                    <button class="admin" onclick="window.location.href='crea_gara_admin'">Amministratori / Inseritori</button>
+                    <button class="salva-gara" onclick="window.location.href='crea_gara_salva'">Concludi / Salva</button>
+                </div>
+            </div>
+            <div class="container-carica-testo">
+                <div class="carica-testo">
+                    <p align="center">Carica il testo qui sotto (SOLO PDF) (<a href="http://olimpiadi.dm.unibo.it/le-gare/gara-a-squadre" target="_blank">Testi ufficiali gare a squadre</a>) o crea il tuo foglio risposte (<a href="https://docs.google.com/document/d/17WH4T4C0GsqjFxfuxStFa_j_zwx3SxyTX824svx2mOg/copy" target="_blank">Foglio risposte</a>) o inserisci le risposte manualmente a lato </p>
+                    <input class="file-testo" type="file">
+                    <button class="upload-testo">Carica</button>
+                    <!--<button class="elimina-testo">Elimina testo</button>-->
+                    
+                </div>
+                <div class="vedi-domande">
+                    <p align="center" class="carica-testo-titolo-risposte">Scorri fino in fondo per aggiungere problemi</p>
+                    <div class="container-domande-testo">                    
+                        <div class="domanda">
+                            <p><button class="x-testo">X</button> Domanda 1 <input class="box-domanda-testo" type="text" placeholder="rsiposta"></p>
+                        </div>
+                        <div class="domanda">
+                            <p><button class="x-testo">X</button> Domanda 1 <input class="box-domanda-testo" type="text" placeholder="rsiposta"></p>
+                        </div>
+                        <div class="domanda">
+                            <p><button class="x-testo">X</button> Domanda 1 <input class="box-domanda-testo" type="text" placeholder="rsiposta"></p>
+                        </div>
+                        <div class="domanda">
+                            <p><button class="x-testo">X</button> Domanda 1 <input class="box-domanda-testo" type="text" placeholder="rsiposta"></p>
+                        </div>
+                        <div class="domanda">
+                            <p><button class="x-testo">X</button> Domanda 1 <input class="box-domanda-testo" type="text" placeholder="rsiposta"></p>
+                        </div>
+                        <div class="domanda">
+                            <p><button class="x-testo">X</button> Domanda 1 <input class="box-domanda-testo" type="text" placeholder="rsiposta"></p>
+                        </div>
+                    </div>
+                    <div class="aggiungi-domanda">
+                        <button class="button-aggiungi-domanda">Aggiungi doamnda</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="script/google_login.js"></script>
+        <script src="script/render_pages.js"></script>
+        <script src="script/crea_gara_testo.js"></script>
+    </body>
+</html>
+

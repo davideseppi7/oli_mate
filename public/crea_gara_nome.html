@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/general.css">
+        <style>
+            .container{
+                position: absolute;
+                width: 100%;
+                margin-top: 60px;
+            }
+            .nome,
+            .testo,
+            .squadre,
+            .admin{
+                margin-right: 30px;
+            }
+
+            .avanti-termina-nome{
+                position: absolute;
+                right: 0;
+            }
+
+            .container-pagina-nome{
+                margin-top: 130px;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            .pagina-nome{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                width: 270px;
+
+
+                max-height: 550px;
+                background-color: #fff0;
+                backdrop-filter: blur(7px);
+                box-shadow: 0 .4rem .8rem #8c388c;
+                border-radius: .8rem;
+                overflow: auto;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            
+            .inserire-nome-gara,
+            .inserire-inizio-gara,
+            .inserire-fine-gara,
+            .inserire-data-gara{
+                text-align: center;
+                background-color: var(--light);
+                border-radius: 5px;
+                padding: 10px;
+                font-size: large;
+                border:0;
+                margin-bottom: 10px;
+            }
+
+            .p-nome-gara{
+                margin: 0;
+                margin-top: 15px;
+                margin-bottom: 10px;
+            }
+
+            .inserire-data-gara{
+                display: flex;
+                justify-content: center;
+                margin-left: 50px;
+                margin-right: 50px;
+                text-align: center;
+                margin-bottom: 0;
+            }
+
+            .inserire-inizio-gara,
+            .inserire-fine-gara{
+                margin-left: 80px;
+                margin-right: 80px;
+                text-align: center;
+                margin-bottom: 0;
+            }
+
+            .info-tempo-gara{
+                font-size: medium;
+            }
+
+            .info-durata-gara{
+                margin:0;
+                font-size: medium;
+                margin-bottom: 5px;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <header class="header">
+            <button class="crea-gara" onclick="window.location.href='crea_gara'">Crea gara</button>
+            <button class="gestisci-gare" onclick="window.location.href='gestisci_gare'">Gestisci gare</button>
+            <button class="storico-gare" onclick="window.location.href='storico_gare'">Storico gare</button>
+            <button class="gara-live" onclick="window.location.href='home'">Gara live</button>
+            <img class="gara-live" src="immagini/zoom-in.svg" onclick="zoom_in()">
+            <img class="gara-live" src="immagini/zoom-out.svg" onclick="zoom_out()">
+            <button class="button-login" onclick="login()">Login</button>
+            <button class="button-logout" onclick="logout()">Logout</button>
+            <div style="display: none;" class="google-login">
+                <script src="https://accounts.google.com/gsi/client" async></script>
+                <!-- Sign In With Google button with HTML data attributes API -->
+                <div id="g_id_onload"
+                    data-client_id="195740030147-8mfntisl8iji9m4gpd1vhe27a5tel8p6.apps.googleusercontent.com"
+                    data-context="signin"
+                    data-ux_mode="popup"
+                    data-callback="handleCredentialResponse"
+                    data-auto_prompt="true">
+                </div>
+        
+                <div class="g_id_signin"
+                    data-type="standard"
+                    data-shape="pill"
+                    data-theme="outline"
+                    data-text="signin_with"
+                    data-size="large"
+                    data-logo_alignment="left">
+                </div>
+        
+                <!-- Display the user's profile info -->
+                <div class="pro-data hidden"></div>
+            </div>
+        </header>
+        <div class="overlay" id="overlay" style="display: none;"></div>
+        <div class="container">
+            <div class="freccia-container">
+                <img class="freccia" src="immagini/freccia.png">
+                <div class="line">
+                    <button class="nome is-active" onclick="window.location.href='crea_gara_nome'">Nome gara / Dati gara</button>
+                    <button class="testo" onclick="window.location.href='crea_gara_testo'">Testo gara</button>
+                    <button class="squadre" onclick="window.location.href='crea_gara_squadre'">Squadre</button>
+                    <button class="admin" onclick="window.location.href='crea_gara_admin'">Amministratori / Inseritori</button>
+                    <button class="salva-gara" onclick="window.location.href='crea_gara_salva'">Concludi / Salva</button>
+                </div>
+            </div>
+            <div class="container-pagina-nome">
+                <div class="pagina-nome">
+                    <p align="center" class="p-nome-gara">Nome gara</p>
+                    <input class="inserire-nome-gara" type="text" placeholder="Inserire il nome della gara">
+                    
+                    <p align="center" class="p-nome-gara">Data gara</p>
+                    <input class="inserire-data-gara" type="date">
+                    
+
+                    <p align="center" class="p-nome-gara">Inizio gara</p>
+                    <input class="inserire-inizio-gara" type="time">
+                    
+                    <p align="center" class="p-nome-gara">Fine gara</p>
+                    <input class="inserire-fine-gara" type="time">
+                    
+                    <p align="center" class="info-tempo-gara">Il tempo di inizio e fine non sono vincolanti per l'effettivo inizio della gara (sarai tu ad iniziarla) ma sono vincolanti in termini di durata (se l'intervallo impostato è di 90 min non potrà essere cambiato)</p>
+                    <p align="center" class="info-durata-gara">Normalmete: 90 min semifinale, 120 min finale</p>
+                </div>
+            </div>
+        </div>
+        <script src="script/google_login.js"></script>
+        <script src="script/render_pages.js"></script>
+        <script src="script/crea_gara_nome.js"></script>
+    </body>
+</html>
+
+
+
+

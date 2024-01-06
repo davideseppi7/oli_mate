@@ -1,0 +1,87 @@
+https://www.codexworld.com/login-with-google-account-using-javascript/
+
+
+npm init --y
+npm install express
+npm install dotenv
+npm install cors
+npm install nodemon --save-dev
+npm install pdf-parse
+npm install multer
+
+eliminare caratteri speciali quando upload db
+
+0=creatore(può eliminare la gara) 1=admin 2=inseritore
+
+giocata 0=da giocare 1=sis sta giocando 2=finita
+
+
+!!!eliminare non admin da inserimento domande/inseritori (c'è già, controllare se funziona) fatto
+
+!!!!!! la durata_prog_gara vine modificata se la gara termina in anticipo, durata effettiva gara non vine utilizzata
+
+
+ordinamento se pt pari
+
+{
+    "id_gara": 10,
+    "nome_dati_gara": {
+        "nome_gara": "qdddewd",
+        "inizio_prog_gara": "23:02",
+        "data_prog_gara": "2023-09-08",
+        "fine_prog_gara": "23:59",
+        "durata_prog_gara": 57
+    },
+    "dati_completi_gara": {
+        "crea_gara_nome": 1,
+        "crea_gara_testo": 1,
+        "crea_gara_squadre": 1,
+        "crea_gara_admin": 1
+    },
+    "testo_gara": [
+        "4444"
+    ],
+    "squadre_gara": [
+        "Squadra 1"
+    ],
+    "admin_gara": [],
+    "inseritori_gara": [],
+    "email_creatore": "d.seppi.953@liceorussell.eu"
+}
+
+C7d5qWa92PpYEq1G6o0j
+
+
+{nome_squadra: 'Squadra 3', numero_domanda: '2', risposta: '333', ora: '21:44:25'}
+
+
+
+
+Ls GRANT ALL PRIVILEGES ON *.* TO 'sammy'@'localhost' WITH GRANT OPTION;
+
+//inizio effettivo
+SELECT inizio_eff_gara FROM gare WHERE id_gara=?;
+12:52
+		
+
+
+//tutte le risposte corrette ordinate per numero domanda, se più risposte corrette dalla stessa squadra —> quella che è stata inviata prima
+SELECT nome_squadra,numero_domanda,min(ora) as ora FROM risposte WHERE id_gara=1 and corretta=1 GROUP by numero_domanda,nome_squadra ORDER by ora,numero_domanda;
+		  {nome_squadra: 'Squadra 1', numero_domanda: 1, ora: '14:36:30'} 1 :  {nome_squadra: 'Squadra 3', numero_domanda: 3, ora: '12:56:09'}//in realtà ordinati per ora
+
+
+//per ogni risposta da quante squadre è stata sbagliata almeno 1 volata
+select numero_domanda,COUNT(DISTINCT(nome_squadra))as errori FROM `risposte` WHERE corretta=0 and id_gara=? GROUP by numero_domanda;
+		{numero_domanda: 1, errori: 2} 1 :  {numero_domanda: 2, errori: 1} 2 :  {numero_domanda: 3, errori: 1}
+
+
+//selezioni i jolly di ogni squadra, ordinati per le squadre e poi ora, elimino doppi, non controllo >10min
+SELECT nome_squadra,numero_domanda,min(ora) as ora FROM jolly WHERE id_gara=? GROUP by nome_squadra ORDER by nome_squadra,ora;
+		{nome_squadra: 'Squadra 1', numero_domanda: 2, ora: '12:56:37'} 1 :  {nome_squadra: 'Squadra 2', numero_domanda: 3, ora: '12:56:44'} 2 :  {nome_squadra: 'Squadra 3', numero_domanda: 3, ora: '12:56:31'} 3 :  {nome_squadra: 'Squadra 3', numero_domanda: 1, ora: '13:24:28'}
+
+//tutte le risposte sbagliate che le squadre hanno dato ai problemi
+SELECT numero_domanda, nome_squadra,ora FROM risposte where corretta=0 and id_gara=? ORDER BY ora, numero_domanda, nome_squadra;		{numero_domanda: 1, nome_squadra: 'Squadra 1', risposte_sbagliate: 1} 1 :  {numero_domanda: 1, nome_squadra: 'Squadra 3', risposte_sbagliate: 1} 2 :  {numero_domanda: 2, nome_squadra: 'Squadra 1', risposte_sbagliate: 2} 3 :  {numero_domanda: 3, nome_squadra: 'Squadra 3', risposte_sbagliate: 1}
+        {numero_domanda: 1, nome_squadra: 'Squadra 1', ora: '20:33:47'}
+        
+//squadre in ordine di tempo che hanno dato tutte le risposte corrette
+select nome_squadra,numero_domanda,max(ora) as ora,count(nome_squadra) as numero_corrette from (SELECT nome_squadra,numero_domanda,min(ora) as ora FROM risposte WHERE id_gara=10 and corretta=1 GROUP by numero_domanda,nome_squadra) as corrette group by nome_squadra having numero_corrette=(select count(numero_domanda) from domande where id_gara=10) ORDER by ora;

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../css/general.css">
+        <style>
+            .gara-passata-container{
+                display: flex;
+                justify-content: space-around;
+                margin-top: 80px;
+            }
+
+            .classifica{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                width: 500px;
+
+                background-color: #fff0;
+                backdrop-filter: blur(7px);
+                box-shadow: 0 .4rem .8rem #8c388c;
+                border-radius: .8rem;
+                overflow: auto;
+                padding-left: 20px;
+                padding-right: 20px;
+                padding-bottom: 20px;
+            }
+
+            .classifica-sqadra{
+                margin-top: -3px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                border-top: 3px dotted black;
+                border-bottom: 3px dotted black;
+            }
+
+            .container-storico-destra{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                max-height: 95px;
+                background-color: #fff0;
+                backdrop-filter: blur(7px);
+                box-shadow: 0 .4rem .8rem #8c388c;
+                border-radius: .8rem;
+                overflow: auto;
+                padding: 20px 20px;
+            }
+
+            .storico-destra{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .button-storico-gara{
+                background-color: #8c388c;
+                border:none;
+                border-radius: 10px;
+                padding: 10px;
+                color: white;
+            }
+
+            .p-gara-live{
+                font-size: x-large;
+            }
+
+            .button-storico-gara-mostra-pt{
+                margin-bottom: 10px;
+            }
+
+            .button-storico-gara-mostra-risposte-jolly{
+                margin: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <header class="header">
+            <button class="crea-gara" onclick="window.location.href='../crea_gara'">Crea gara</button>
+            <button class="gestisci-gare" onclick="window.location.href='../gestisci_gare'">Gestisci gare</button>
+            <button class="storico-gare is-active" onclick="window.location.href='../storico_gare'">Storico gare</button>
+            <button class="gara-live" onclick="window.location.href='../home'">Gara live</button>
+            <img class="gara-live" src="../immagini/zoom-in.svg" onclick="zoom_in()">
+            <img class="gara-live" src="../immagini/zoom-out.svg" onclick="zoom_out()">
+            <button class="button-login" onclick="login()">Login</button>
+            <button class="button-logout" onclick="logout()">Logout</button>
+            <div style="display: none;" class="google-login">
+                <script src="https://accounts.google.com/gsi/client" async></script>
+                <!-- Sign In With Google button with HTML data attributes API -->
+                <div id="g_id_onload"
+                    data-client_id="195740030147-8mfntisl8iji9m4gpd1vhe27a5tel8p6.apps.googleusercontent.com"
+                    data-context="signin"
+                    data-ux_mode="popup"
+                    data-callback="handleCredentialResponse"
+                    data-auto_prompt="true">
+                </div>
+        
+                <div class="g_id_signin"
+                    data-type="standard"
+                    data-shape="pill"
+                    data-theme="outline"
+                    data-text="signin_with"
+                    data-size="large"
+                    data-logo_alignment="left">
+                </div>
+        
+                <!-- Display the user's profile info -->
+                <div class="pro-data hidden"></div>
+            </div>
+        </header>
+        <div class="overlay" id="overlay" style="display: none;"></div>
+        <div class="gara-passata-container">
+            <div class="classifica">
+                <p class="p-gara-live" align="center">Classifica "nome gara" 21/10/2023</p>
+                <div class="classifica-sqadra">
+                    <p>Squadra 1</p>
+                    <p>500 pt.</p>
+                </div>
+                <div class="classifica-sqadra">
+                    <p>Squadra 1</p>
+                    <p>500 pt.</p>
+                </div>
+                <div class="classifica-sqadra">
+                    <p>Squadra 1</p>
+                    <p>500 pt.</p>
+                </div>
+            </div>
+            <div class="container-storico-destra">
+                    <div class="storico-destra">
+                    <button class="button-storico-gara button-storico-gara-mostra-pt">Mostra tabella punti problemi</button>
+                    <button class="button-storico-gara button-storico-gara-mostra-risposte-jolly">Modifica risposte/jolly</button>
+                </div>
+            </div>
+        </div>
+        <script src="../script/google_login.js"></script>
+        <script src="../script/render_pages.js"></script>
+        <script src="../script/storico_gare_gara.js"></script>
+    </body>
+</html>

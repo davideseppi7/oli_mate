@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../css/general.css">
+        <style>
+            .container-inserimento{
+                display: grid;
+                grid-template-columns: 3fr 1fr;
+                margin-top: 80px;
+                margin-left:15px;
+                margin-right:20px;
+            }
+
+            .info-gara{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                background-color: lightpink;
+                margin-top: 5px;
+            }
+
+            .invia-jolly{
+                background-color: lightpink;
+                margin-top: 5px;
+                padding: 5px;
+            }
+
+            .riga-jolly{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .pulsante-jolly{
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+
+            .bottom-button{
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+
+            @media (min-width: 1500px) {
+                .riquadri-risposte{
+                    display:grid;
+                    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+                }
+            }
+
+            @media (min-width: 1400px) and (max-width: 1499px) {
+                .riquadri-risposte{
+                    display:grid;
+                    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+                }
+            }
+
+            @media (min-width: 1200px) and (max-width: 1399px) {
+                .riquadri-risposte{
+                    display:grid;
+                    grid-template-columns: 1fr 1fr 1fr 1fr;
+                }
+            }
+
+            @media (max-width: 1199px) {
+                .riquadri-risposte{
+                    display:grid;
+                    grid-template-columns: 1fr 1fr 1fr;
+                }
+            }
+            
+            /*1500-1200
+            1500+ 6
+            1500 1400 5
+            1400 1200 4
+            1200 - 3
+            */
+
+            .riquadri-risposte-squadra{
+                display:flex;
+                flex-direction: column;
+                justify-content: center;
+                background-color: lightblue;
+                padding: 10px;
+                margin: 5px;
+
+                max-width: 160px;
+                /*max-height: 180px;*/
+                background-color: #fff0;
+                backdrop-filter: blur(7px);
+                box-shadow: 0 .4rem .8rem #8c388c;
+                border-radius: .8rem;
+                overflow: auto;
+                padding: 20px;
+                margin-bottom: 30px;
+            }
+
+            .pulsanti-gare-inserimento{
+                background-color: #8c388c;
+                border:none;
+                border-radius: 10px;
+                padding: 10px;
+                color: white;
+            }
+
+            .pulsanti-gare-inserimento-riduci-inserimento{
+                margin-bottom:10px;
+            }
+
+            .input-inserimento-live{
+                text-align: center;
+                background-color: var(--light);
+                border-radius: 5px;
+                padding: 10px;
+                font-size: large;
+                border:0;
+                margin-bottom: 10px;
+                min-width: 0;
+                border-radius: 10px;
+                border-color: var(--light);
+                border-style: solid;
+            }
+
+            .p-inserimento{
+                margin: 0;
+                margin-bottom: 10px;
+                font-size: x-large;
+            }
+
+            .info-gara{
+                display: flex;
+                flex-direction: column;
+                max-width: 500px;
+                
+                background-color: #fff0;
+                backdrop-filter: blur(7px);
+                box-shadow: 0 .4rem .8rem #8c388c;
+                border-radius: .8rem;
+                overflow: auto;
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+
+            .invia-jolly,
+            .bottom-button{
+                max-width: 500px;
+                max-height: 400px;
+                background-color: #fff0;
+                backdrop-filter: blur(7px);
+                box-shadow: 0 .4rem .8rem #8c388c;
+                border-radius: .8rem;
+                overflow: auto;
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+
+            .p-gara-live{
+                font-size: x-large;
+                margin:0;
+                margin-bottom: 10px;
+            }
+
+            .scroll-menu-jolly{
+                height: 40px;
+                margin-bottom: 10px;
+                border-radius: 10px;
+                background-color: var(--light);
+                border:none;
+                margin-right: 2px;
+            }
+
+            .scroll-menu-problemi-jolly{
+                height: 40px;
+                margin-bottom: 10px;
+                border-radius: 10px;
+                background-color: var(--light);
+                border:none;
+            }
+
+            .right-inserimento-menu{
+                margin-left: 20px;
+                width: 350px;
+            }
+
+            .scroll-menu-squadre{
+                height: 40px;
+                margin-bottom: 10px;
+                border-radius: 10px;
+                background-color: var(--light);
+                border:none;
+                margin-right: 2px;
+                text-align: center;
+                height: 40px;
+                font-size: large;
+                min-width: 0;
+            }
+
+            .select-not-selected{
+                color: #757575;
+            }
+
+        </style>
+    </head>
+    <body>
+        <header class="header">
+            <button class="crea-gara" onclick="window.location.href='../crea_gara'">Crea gara</button>
+            <button class="gestisci-gare is-active" onclick="window.location.href='../gestisci_gare'">Gestisci gare</button>
+            <button class="storico-gare" onclick="window.location.href='../storico_gare'">Storico gare</button>
+            <button class="gara-live" onclick="window.location.href='../home'">Gara live</button>
+            <img class="gara-live" src="../immagini/zoom-in.svg" onclick="zoom_in()">
+            <img class="gara-live" src="../immagini/zoom-out.svg" onclick="zoom_out()">
+            <button class="button-login" onclick="login()">Login</button>
+            <button class="button-logout" onclick="logout()">Logout</button>
+            <div style="display: none;" class="google-login">
+                <script src="https://accounts.google.com/gsi/client" async></script>
+                <!-- Sign In With Google button with HTML data attributes API -->
+                <div id="g_id_onload"
+                    data-client_id="195740030147-8mfntisl8iji9m4gpd1vhe27a5tel8p6.apps.googleusercontent.com"
+                    data-context="signin"
+                    data-ux_mode="popup"
+                    data-callback="handleCredentialResponse"
+                    data-auto_prompt="true">
+                </div>
+        
+                <div class="g_id_signin"
+                    data-type="standard"
+                    data-shape="pill"
+                    data-theme="outline"
+                    data-text="signin_with"
+                    data-size="large"
+                    data-logo_alignment="left">
+                </div>
+        
+                <!-- Display the user's profile info -->
+                <div class="pro-data hidden"></div>
+            </div>
+        </header>
+        <div class="overlay" id="overlay" style="display: none;"></div>
+        <div class="container-inserimento">
+            <div class="container-riquadri-risposte">
+                <div class="riquadri-risposte">
+                    <div class="riquadri-risposte-squadra">
+                        <p class="p-inserimento" align="center">Squadra 1</p>
+                        <select class="scroll-menu-squadre select-not-selected"> 
+                            <option value="Squadra 1">Problema 1</option> 
+                            <option value="Squadra 2">Problema 2</option>
+                        </select>
+                        <input class="input-inserimento-live" type="text" placeholder="risposta">
+                        <button class="pulsanti-gare-inserimento">Invia risposta</button>
+                    </div>
+                    <div class="riquadri-risposte-squadra">
+                        <p class="p-inserimento" align="center">Squadra 1</p>
+                        <select class="scroll-menu-squadre select-not-selected"> 
+                            <option value="Squadra 1">Problema 1</option> 
+                            <option value="Squadra 2">Problema 2</option>
+                        </select>
+                        <input class="input-inserimento-live" type="text" placeholder="risposta">
+                        <button class="pulsanti-gare-inserimento">Invia risposta</button>
+                    </div>
+                    <div class="riquadri-risposte-squadra">
+                        <p class="p-inserimento" align="center">Squadra 1</p>
+                        <select class="scroll-menu-squadre select-not-selected"> 
+                            <option value="Squadra 1">Problema 1</option> 
+                            <option value="Squadra 2">Problema 2</option>
+                        </select>
+                        <input class="input-inserimento-live" type="text" placeholder="risposta">
+                        <button class="pulsanti-gare-inserimento">Invia risposta</button>
+                    </div>
+                    <div class="riquadri-risposte-squadra">
+                        <p class="p-inserimento" align="center">Squadra 1</p>
+                        <select class="scroll-menu-squadre select-not-selected"> 
+                            <option value="Squadra 1">Problema 1</option> 
+                            <option value="Squadra 2">Problema 2</option>
+                        </select>
+                        <input class="input-inserimento-live" type="text" placeholder="risposta">
+                        <button class="pulsanti-gare-inserimento">Invia risposta</button>
+                    </div>
+                    <div class="riquadri-risposte-squadra">
+                        <p class="p-inserimento" align="center">Squadra 1</p>
+                        <select class="scroll-menu-squadre select-not-selected"> 
+                            <option value="Squadra 1">Problema 1</option> 
+                            <option value="Squadra 2">Problema 2</option>
+                        </select>
+                        <input class="input-inserimento-live" type="text" placeholder="risposta">
+                        <button class="pulsanti-gare-inserimento">Invia risposta</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-inserimento-menu">
+                <div class="info-gara">
+                    <p class="p-gara-live titolo-gara-live" align=center>Gara 1</p>
+                    <p class="p-gara-live conto-alla-rovascia" align=center>90 min 60 sec</p>
+                    <button class="pulsanti-gare-inserimento anteprima-gara">Anteprima gara</button>
+                </div>
+
+                <div class="invia-jolly">
+                    <p  class="p-gara-live" align=center>Jolly</p>
+                    <div class="riga-jolly">
+                        <select class="scroll-menu-jolly select-not-selected"> 
+                            <option value="Squadra 1">Squadra trento russell</option> 
+                            <option value="Squadra 2">Squadra 2</option>
+                        </select>
+
+                        <select class="scroll-menu-problemi-jolly select-not-selected"> 
+                            <option value="Problema 1">Problema 1</option> 
+                            <option value="Problema 2">Problema 2</option>
+                        </select>
+                    </div>
+                    <div class="pulsante-jolly">
+                        <button class="pulsanti-gare-inserimento pulsanti-gare-inserimento-invia-jolly">Invia jolly</button>
+                    </div>
+
+                </div>
+                <nav class="bottom-button">
+                    <button class="pulsanti-gare-inserimento pulsanti-gare-inserimento-riduci-inserimento">Riduci insrimento</button>
+                    <button class="pulsanti-gare-inserimento pulsanti-gare-inserimento-cronologia-modifica">Cronologia/modifica insrimenti</button>
+                </nav>
+            </div>
+            <!--
+            <div class="info-gara">
+                <p align=center>Gara 1</p>
+                <button>Termina in anticipo</button>
+                <p align=center>90 min</p>
+                <button>Anteprima gara</button>
+            </div>
+            -->
+            
+            <!--
+            <div class="risposte">
+                <div class="invia-jolly">
+                    <p align=center style="margin:0;">Jolly</p>
+                    <div class="riga-jolly">
+                        <select class="scroll-menu-jolly"> 
+                            <option value="Squadra 1">Squadra 1</option> 
+                            <option value="Squadra 2">Squadra 2</option>
+                        </select>
+
+                        <select class="scroll-menu-problemi-jolly"> 
+                            <option value="Problema 1">Problema 1</option> 
+                            <option value="Problema 2">Problema 2</option>
+                        </select>
+                    </div>
+                    <div class="pulsante-jolly">
+                        <button>Invia jolly</button>
+                    </div>
+                </div>
+            </div>
+            -->
+        </div>
+        <script src="../script/google_login.js"></script>
+        <script src="../script/render_pages.js"></script>
+        <script src="../script/gestisci_gare_gara_live_inserimento.js"></script>
+    </body>
+</html>
+

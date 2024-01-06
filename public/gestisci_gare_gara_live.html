@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../css/general.css"><!--torno inietro nell'url-->
+        <style>
+            .container-gara{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                margin-top: 80px;
+            }
+            .info-gara{
+                display: flex;
+                flex-direction: column;
+                max-width: 300px;
+                background-color: #fff0;
+                backdrop-filter: blur(7px);
+                box-shadow: 0 .4rem .8rem #8c388c;
+                border-radius: .8rem;
+                /*overflow: auto;*/
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .riga-risposta{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            .pulsante-risposta{
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+
+            .invia-jolly{
+                background-color: lightpink;
+                margin-top: 5px;
+                padding: 5px;
+            }
+
+            .riga-jolly{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .pulsante-jolly{
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+
+            .bottom-button{
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+
+            .pulsanti-gare-live,
+            .pulsante-invia-risposte,
+            .pulsante-invia-jolly{
+                background-color: #8c388c;
+                border:none;
+                border-radius: 10px;
+                padding: 10px;
+                color: white;
+            }
+
+            .p-gara-live{
+                font-size: x-large;
+            }
+
+            .p-gara-live-titoli{
+                margin:0;
+                margin-bottom: 10px;
+            }
+
+            .risposte-container{
+                display: flex;
+                flex-direction: column;
+            }
+
+            .invia-risposte,
+            .invia-jolly,
+            .bottom-button{
+                max-width: 500px;
+                max-height: 400px;
+                background-color: #fff0;
+                backdrop-filter: blur(7px);
+                box-shadow: 0 .4rem .8rem #8c388c;
+                border-radius: .8rem;
+                overflow: auto;
+                padding-left: 20px;
+                padding-right: 20px;
+                margin-bottom: 20px;
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+
+            .invia-risposte,
+            .invia-jolly{
+                padding-top: 10px;
+            }
+
+            .input-gara-live{
+                text-align: center;
+                background-color: var(--light);
+                border-radius: 5px;
+                padding: 10px;
+                font-size: large;
+                border:0;
+                margin-bottom: 10px;
+                width: 70px;
+                border-radius: 10px;
+            }
+
+            .pulsanti-gare-live-anteprima-gara{
+                margin-bottom: 20px;
+            }
+
+            .pulsanti-gare-live-espandi-inserimento{
+                margin-bottom: 10px;
+            }
+
+            .scroll-menu-risposta-squadra{
+                height: 40px;
+                width: 150px;
+                border-radius: 10px;
+                background-color: var(--light);
+                border:none;
+                margin-right: 3px;
+            }
+
+            .scroll-menu-risposta-problema{
+                height: 40px;
+                width: 90px;
+                border-radius: 10px;
+                background-color: var(--light);
+                border:none;
+                margin-right: 3px;
+            }
+
+            .scroll-menu-squadra-jolly{
+                height: 40px;
+                margin-bottom: 10px;
+                border-radius: 10px;
+                background-color: var(--light);
+                border:none;
+                margin-right: 3px;
+            }
+
+            .scroll-menu-problemi-jolly{
+                height: 40px; 
+                margin-bottom: 10px;
+                border-radius: 10px;
+                background-color: var(--light);
+                border:none;
+            }
+
+            .select-not-selected{
+                color: #757575;
+            }
+
+            .popup-termina-gara-external-container{
+                display: none;
+                position: fixed;
+                top: 51px;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                backdrop-filter: blur(2px);
+                background-color: rgba(0, 0, 0, 0.1);
+                justify-content: center;
+                align-items: start;
+            }
+
+            .popup-termina-gara-container{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                background-color: rgb(255, 255, 255);
+                backdrop-filter: blur(7px);
+                box-shadow: 0 .4rem .8rem #8c388c;
+                border-radius: .8rem;
+                overflow: auto;
+                padding-left: 20px;
+                padding-right: 20px;
+                padding-bottom: 20px;
+                margin-top: 20px;
+            }
+
+            .popup-termina-gara{
+                background-color: #fff0;
+                display:flex;
+                flex-direction: column;
+            }
+
+            .popup-termina-gara p{
+                font-size: x-large;
+            }
+
+            .bottoni-termina-gara-container{
+                display: flex;
+                justify-content: space-around;
+            }
+
+            .gestisci-gare-termina-torna-inietro,
+            .termina-gara{
+                background-color: #8c388c;
+                border:none;
+                border-radius: 10px;
+                padding: 10px;
+                color: white;
+            }
+
+            .titolo-gara-live{
+                margin-bottom: 0px;
+            }
+
+            .pulsanti-gare-live-termina-gara{
+                margin-top: 24px;
+            }
+        </style>
+    </head>
+    <body>
+        <header class="header">
+            <button class="crea-gara" onclick="window.location.href='../crea_gara'">Crea gara</button>
+            <button class="gestisci-gare is-active" onclick="window.location.href='../gestisci_gare'">Gestisci gare</button>
+            <button class="storico-gare" onclick="window.location.href='../storico_gare'">Storico gare</button>
+            <button class="gara-live" onclick="window.location.href='../home'">Gara live</button>
+            <img class="gara-live" src="../immagini/zoom-in.svg" onclick="zoom_in()">
+            <img class="gara-live" src="../immagini/zoom-out.svg" onclick="zoom_out()">
+            <button class="button-login" onclick="login()">Login</button>
+            <button class="button-logout" onclick="logout()">Logout</button>
+            <div style="display: none;" class="google-login">
+                <script src="https://accounts.google.com/gsi/client" async></script>
+                <!-- Sign In With Google button with HTML data attributes API -->
+                <div id="g_id_onload"
+                    data-client_id="195740030147-8mfntisl8iji9m4gpd1vhe27a5tel8p6.apps.googleusercontent.com"
+                    data-context="signin"
+                    data-ux_mode="popup"
+                    data-callback="handleCredentialResponse"
+                    data-auto_prompt="true">
+                </div>
+        
+                <div class="g_id_signin"
+                    data-type="standard"
+                    data-shape="pill"
+                    data-theme="outline"
+                    data-text="signin_with"
+                    data-size="large"
+                    data-logo_alignment="left">
+                </div>
+        
+                <!-- Display the user's profile info -->
+                <div class="pro-data hidden"></div>
+            </div>
+        </header>
+        <div class="overlay" id="overlay" style="display: none;"></div>
+        <div class="container-gara">
+            <div class="info-gara">
+                <p align=center class="p-gara-live titolo-gara-live">Gara 1 trento lavis</p>
+                <button class="pulsanti-gare-live pulsanti-gare-live-termina-gara">Termina in anticipo</button>
+                <p align=center class="p-gara-live conto-alla-rovascia">- 90 min 60 sec</p>
+                <button class="pulsanti-gare-live pulsanti-gare-live-anteprima-gara">Anteprima gara</button>
+            </div>
+            <div class="risposte-container">
+                <div class="invia-risposte">
+                    <p align=center class="p-gara-live p-gara-live-titoli">Risposte</p>
+                    <div class="riga-risposta">
+                        <select class="scroll-menu-risposta-squadra select-not-selected"> 
+                            <option align="center" value="Squadra 1">Russell catanzaro </option> 
+                            <option align="center" value="Squadra 2">Squadra 2</option>
+                        </select>
+                        <select class="scroll-menu-risposta-problema select-not-selected"> 
+                            <option align="center" value="0">Pb. 1</option> 
+                            <option align="center" value="1">Pb. 2</option>
+                        </select>
+                        <input class="input-gara-live" type="text" placeholder="Risposta">
+                    </div>
+                    <div class="pulsante-risposta">
+                        <button class="pulsante-invia-risposte">Invia risposta</button>
+                    </div>
+                </div>
+                <div class="invia-jolly">
+                    <p align=center class="p-gara-live p-gara-live-titoli">Jolly</p>
+                    <div class="riga-jolly">
+                        <select class="scroll-menu-squadra-jolly select-not-selected"> 
+                            <option align="center" value="Squadra 1">Squadra 1</option> 
+                            <option align="center" value="Squadra 2">Squadra 2</option>
+                        </select>
+
+                        <select class="scroll-menu-problemi-jolly select-not-selected"> 
+                            <option align="center" value="Problema 1">Problema 1</option> 
+                            <option align="center" value="Problema 2">Problema 2</option>
+                        </select>
+                    </div>
+                    <div class="pulsante-jolly">
+                        <button class="pulsante-invia-jolly">Invia jolly</button>
+                    </div>
+                </div>
+                <nav class="bottom-button">
+                    <button class="pulsanti-gare-live pulsanti-gare-live-espandi-inserimento">Espandi insrimento</button>
+                    <button class="pulsanti-gare-live pulsanti-gare-live-modifica">Cronologia/modifica insrimenti</button>
+                </nav>
+            </div>
+        </div>
+
+        <div class="popup-termina-gara-external-container">
+            <div class="popup-termina-gara-container">
+                <div class="popup-termina-gara">
+                    <p>Sei sicuro di voler TERMINARE la gara?</p>
+                    <div class="bottoni-termina-gara-container">
+                        <button class="termina-gara">TERMINA la gara</button>
+                        <button class="gestisci-gare-termina-torna-inietro">Torna indietro</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../script/google_login.js"></script><!-- ../ torno inietro nell'url-->
+        <script src="../script/render_pages.js"></script>
+        <script src="../script/gestisci_gare_gara_live.js"></script>
+    </body>
+</html>
+
