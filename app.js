@@ -1,5 +1,8 @@
-const path="/Users/davideseppi/";
-const port=5050;
+const port=8080;
+
+const pathLib = require('path');
+const originalPath = "/Users/davideseppi/oli_mate";
+const path = pathLib.resolve(originalPath, '..')+'/';//trova il path della cartella oli_mate (oli_mate escluso)
 
 const express = require('express');
 const app = express();
