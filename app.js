@@ -1,8 +1,6 @@
 const port=8080;
 
-const pathLib = require('path');
-const originalPath = __dirname; //__dirname restituisce percorso corrente
-const path = pathLib.resolve(originalPath, '..')+'/';//trova il path della cartella oli_mate (oli_mate escluso)
+const path=__dirname+'/';//percorso corrente
 
 const express = require('express');
 const app = express();
@@ -16,7 +14,7 @@ const upload = multer();
 
 const dbService = require('./dbService');
 
-app.use('/css', express.static(`${path}oli_mate/public/css`));
+app.use('/css', express.static(`${path}public/css`));
 app.use(express.json());
 app.use(express.urlencoded({ extended : false }));
 app.use(cors());
@@ -25,28 +23,28 @@ app.use(cors());
 scripts.forEach(element=>{
     app.post(`/script/${element}`, (request, response) => {
         res.type('application/javascript');
-        response.sendFile(`${path}oli_mate/public/script/${element}.js`);
+        response.sendFile(`${path}public/script/${element}.js`);
     });
     
     app.get(`/script/${element}`, (request, response) => {
         response.type('application/javascript');
-        response.sendFile(`${path}oli_mate/public/script/${element}.js`);
+        response.sendFile(`${path}public/script/${element}.js`);
     });
 });*/
 
 /*app.get('/script/google_login.js', (req, res) => {
     res.type('application/javascript');
-    res.sendFile(`${path}oli_mate/public/script/google_login.js`);
+    res.sendFile(`${path}public/script/google_login.js`);
 });
 
 app.get('/script/render_pages.js', (req, res) => {
     res.type('application/javascript');
-    res.sendFile(`${path}oli_mate/public/script/render_pages.js`);
+    res.sendFile(`${path}public/script/render_pages.js`);
 });
 
 app.get('/script/crea_gara.js', (req, res) => {
     res.type('application/javascript');
-    res.sendFile(`${path}oli_mate/public/script/crea_gara.js`);
+    res.sendFile(`${path}public/script/crea_gara.js`);
 });*/
 
 const scripts=["google_login","render_pages","crea_gara_nome","crea_gara_testo","crea_gara_squadre","crea_gara_admin","crea_gara_salva","gestisci_gare","crea_gara","gestisci_gare_gara_live","gestisci_gare_gara_live_inserimento","gestisci_gare_modifica","home","gara_live_live","storico_gare","storico_gare_gara","fake_login"]
@@ -54,52 +52,52 @@ const scripts=["google_login","render_pages","crea_gara_nome","crea_gara_testo",
 scripts.forEach(element=>{
     app.get(`/script/${element}.js`, (req, res) => {
         res.type('application/javascript');
-        res.sendFile(`${path}oli_mate/public/script/${element}.js`);
+        res.sendFile(`${path}public/script/${element}.js`);
     });
 });
 
 app.post(`/`, (request, response) => {
-    response.sendFile(`${path}oli_mate/public/home.html`);
+    response.sendFile(`${path}public/home.html`);
 });
 
 app.get(`/`, (request, response) => {
-    response.sendFile(`${path}oli_mate/public/home.html`);
+    response.sendFile(`${path}public/home.html`);
 });
 
 const pages=["crea_gara_admin","crea_gara_nome","crea_gara_squadre","crea_gara_testo","crea_gara","gara_live_live","gestisci_gare_gara_live_inserimento","gestisci_gare_modifica","gestisci_gare","home","storico_gare_gara","storico_gare","crea_gara_salva","prova","fake_login"]
 
 pages.forEach(element=>{
     app.post(`/${element}`, (request, response) => {
-        response.sendFile(`${path}oli_mate/public/${element}.html`);
+        response.sendFile(`${path}public/${element}.html`);
     });
     
     app.get(`/${element}`, (request, response) => {
-        response.sendFile(`${path}oli_mate/public/${element}.html`);
+        response.sendFile(`${path}public/${element}.html`);
     });
 });
 
 app.post(`/immagini/freccia.png`, (request, response) => {
-    response.sendFile(`${path}oli_mate/public/immagini/freccia.png`);
+    response.sendFile(`${path}public/immagini/freccia.png`);
 });
 
 app.get(`/immagini/freccia.png`, (request, response) => {
-    response.sendFile(`${path}oli_mate/public/immagini/freccia.png`);
+    response.sendFile(`${path}public/immagini/freccia.png`);
 });
 
 app.post(`/immagini/zoom-in.svg`, (request, response) => {
-    response.sendFile(`${path}oli_mate/public/immagini/zoom-in.svg`);
+    response.sendFile(`${path}public/immagini/zoom-in.svg`);
 });
 
 app.get(`/immagini/zoom-in.svg`, (request, response) => {
-    response.sendFile(`${path}oli_mate/public/immagini/zoom-in.svg`);
+    response.sendFile(`${path}public/immagini/zoom-in.svg`);
 });
 
 app.post(`/immagini/zoom-out.svg`, (request, response) => {
-    response.sendFile(`${path}oli_mate/public/immagini/zoom-out.svg`);
+    response.sendFile(`${path}public/immagini/zoom-out.svg`);
 });
 
 app.get(`/immagini/zoom-out.svg`, (request, response) => {
-    response.sendFile(`${path}oli_mate/public/immagini/zoom-out.svg`);
+    response.sendFile(`${path}public/immagini/zoom-out.svg`);
 });
 
 function isNumeric(str) {
@@ -279,13 +277,13 @@ app.post('/elimina_gara', (request, response) => {
 app.post('/gestisci_gare_gara_live/:id_gara', (request, response) => {
     const id_gara = request.params.id_gara; // Ottieni il valore dinamico nnnn dalla URL
 
-    response.sendFile(`${path}oli_mate/public/gestisci_gare_gara_live.html`);
+    response.sendFile(`${path}public/gestisci_gare_gara_live.html`);
 });
 
 app.get('/gestisci_gare_gara_live/:id_gara', (request, response) => {
     const id_gara = request.params.id_gara; // Ottieni il valore dinamico nnnn dalla URL
 
-    response.sendFile(`${path}oli_mate/public/gestisci_gare_gara_live.html`);
+    response.sendFile(`${path}public/gestisci_gare_gara_live.html`);
 });
 
 app.post('/inserisci_nuova_risposta', (request, response) => {
@@ -317,25 +315,25 @@ app.post('/inserisci_nuovo_jolly', (request, response) => {
 app.post('/gestisci_gare_gara_live_inserimento/:id_gara', (request, response) => {
     const id_gara = request.params.id_gara; // Ottieni il valore dinamico nnnn dalla URL
 
-    response.sendFile(`${path}oli_mate/public/gestisci_gare_gara_live_inserimento.html`);
+    response.sendFile(`${path}public/gestisci_gare_gara_live_inserimento.html`);
 });
 
 app.get('/gestisci_gare_gara_live_inserimento/:id_gara', (request, response) => {
     const id_gara = request.params.id_gara; // Ottieni il valore dinamico nnnn dalla URL
 
-    response.sendFile(`${path}oli_mate/public/gestisci_gare_gara_live_inserimento.html`);
+    response.sendFile(`${path}public/gestisci_gare_gara_live_inserimento.html`);
 });
 
 app.get('/gestisci_gare_modifica/:id_gara', (request, response) => {
     const id_gara = request.params.id_gara; // Ottieni il valore dinamico nnnn dalla URL
 
-    response.sendFile(`${path}oli_mate/public/gestisci_gare_modifica.html`);
+    response.sendFile(`${path}public/gestisci_gare_modifica.html`);
 });
 
 app.get('/gestisci_gare_modifica_storica/:id_gara', (request, response) => {
     const id_gara = request.params.id_gara; // Ottieni il valore dinamico nnnn dalla URL
 
-    response.sendFile(`${path}oli_mate/public/gestisci_gare_modifica.html`);
+    response.sendFile(`${path}public/gestisci_gare_modifica.html`);
 });
 
 app.post('/get_risposte_jolly', (request, response) => {
@@ -385,19 +383,19 @@ app.post('/aggiorna_risposta_jolly', (request, response) => {
 app.get('/gara_live_live/:id_gara', (request, response) => {
     const id_gara = request.params.id_gara; // Ottieni il valore dinamico nnnn dalla URL
 
-    response.sendFile(`${path}oli_mate/public/gara_live_live.html`);
+    response.sendFile(`${path}public/gara_live_live.html`);
 });
 
 app.get('/gara_live_live_storica/:id_gara', (request, response) => {
     const id_gara = request.params.id_gara; // Ottieni il valore dinamico nnnn dalla URL
 
-    response.sendFile(`${path}oli_mate/public/gara_live_live.html`);
+    response.sendFile(`${path}public/gara_live_live.html`);
 });
 
 app.get('/storico_gare_gara/:id_gara', (request, response) => {
     const id_gara = request.params.id_gara; // Ottieni il valore dinamico nnnn dalla URL
 
-    response.sendFile(`${path}oli_mate/public/storico_gare_gara.html`);
+    response.sendFile(`${path}public/storico_gare_gara.html`);
 });
 
 app.post('/get_inizio_eff_durata_prog', (request, response) => {
@@ -480,7 +478,7 @@ app.post('/get_squadre_tutte_risposte_corrette', (request, response) => {
 
 app.get('/fake_login/:email', (request, response) => {
     const email = request.params.email; // Ottieni il valore dinamico nnnn dalla URL
-    response.sendFile(`${path}oli_mate/public/fake_login.html`);
+    response.sendFile(`${path}public/fake_login.html`);
 });
 
 app.listen(port, () => console.log('app is running'));
