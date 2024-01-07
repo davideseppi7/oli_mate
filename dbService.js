@@ -5,13 +5,21 @@ const dotenv = require('dotenv');
 let instance = null;
 dotenv.config();
 
-const connection = mysql.createConnection({
+/*const connection = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
     database: "oli_mate",
     port: "3306"
-});
+});*/
+
+var conn=mysql.createConnection({
+  host:"olimate-server.mysql.database.azure.com", 
+  user:"xmuyjfxfzu", 
+  password:"8c7cuWKgo803", 
+  database:"oli_mate", 
+  port:3306, 
+  ssl:{ca:fs.readFileSync("{ca-cert filename}")}});
 
 connection.connect((err) => {
     if (err) {
