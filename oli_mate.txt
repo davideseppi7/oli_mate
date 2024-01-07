@@ -6,3 +6,7 @@ https://www.youtube.com/watch?v=9FvgyWDsViA
 
 
 https://phoenixnap.com/kb/install-ssl-certificate-nginx (solo inserimento certification, no generazione)
+
+https://learn.microsoft.com/en-us/azure/mysql/single-server/connect-nodejs?tabs=macos ssl_cet_for_db
+
+https://www.youtube.com/watch?v=h987jU2X0MA deploy to azure (azure chiede se usare github acion e crea i file in automatico)

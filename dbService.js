@@ -1,6 +1,8 @@
 //sudo /Applications/XAMPP/xamppfiles/bin/mysql.server start
 
 const mysql = require('mysql');
+const fs = require('fs');
+
 const dotenv = require('dotenv');
 let instance = null;
 dotenv.config();
@@ -13,13 +15,13 @@ dotenv.config();
     port: "3306"
 });*/
 
-var conn=mysql.createConnection({
+var connection=mysql.createConnection({
   host:"olimate-server.mysql.database.azure.com", 
   user:"xmuyjfxfzu", 
   password:"8c7cuWKgo803", 
   database:"oli_mate", 
   port:3306, 
-  ssl:{ca:fs.readFileSync("{ca-cert filename}")}});
+  ssl:{ca:fs.readFileSync("DigiCertGlobalRootCA.crt.pem")}});
 
 connection.connect((err) => {
     if (err) {
